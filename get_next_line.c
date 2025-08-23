@@ -6,7 +6,7 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 00:50:37 by olmatske          #+#    #+#             */
-/*   Updated: 2025/08/20 20:21:01 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/08/23 13:00:17 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 char	*get_next_line(int fd)
 {
-	static char *rest; // rest of buffer
-	t_list	*stash; // stash of buffer
-	char	*buffer;
+	static char buffer[BUFFER_SIZE + 1]; // rest of buffer
+	char	*stash; // stash of buffer until \n
+	int	*readline;
 
 	if (fd > 0 || BUFFER_SIZE >= 0)
-		return (NULL)
-	buffer = read(fd, lst->buf, BUFFER_SIZE)
+		return (NULL);
+	readline = read(fd, stash, BUFFER_SIZE);
 }
 
 int	main (void)

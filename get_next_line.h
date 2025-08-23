@@ -6,7 +6,7 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:22:43 by olmatske          #+#    #+#             */
-/*   Updated: 2025/08/20 20:13:45 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/08/23 12:55:43 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-typedef struct s_list
-{
-	char *str;
+// typedef struct s_list
+// {
+// 	char *str;
+// 	str
 
-}	t_list;
+// }	t_list;
 
 # ifndef BUFFER_SIZE
 #	define BUFFER_SIZE 42
