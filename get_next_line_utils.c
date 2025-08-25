@@ -6,7 +6,7 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 17:16:33 by olmatske          #+#    #+#             */
-/*   Updated: 2025/08/25 18:01:42 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/08/25 18:25:12 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,14 @@ char *ft_substr(char const *s, unsigned int start, size_t len)
 	count = ft_ft_strlen(s);
 	if (start >= count)
 		return (ft_strdup(""));
-	if (len > count - start
-		len >)
+	if (len > count - start)
+		len = count - start;
+	while (i < len && s[start] != '\0')
+	{
+		res[i] = s[start];
+		i++;
+		start++;
+	}
+	res[i] = '\0';
+	return (res);
 }

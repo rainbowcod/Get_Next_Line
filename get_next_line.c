@@ -6,7 +6,7 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 00:50:37 by olmatske          #+#    #+#             */
-/*   Updated: 2025/08/25 17:12:41 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/08/25 18:35:14 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,7 @@ char	*copy_buffer(char *buffer, int *amount, char *stash)
 		}
 	}
 	if (buffer[i - 1] == '\n')
-	{
-		
-	}
+		buffer = ft_substr(buffer, i, amount);
 	
 }
 
