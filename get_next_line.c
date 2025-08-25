@@ -6,41 +6,50 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 00:50:37 by olmatske          #+#    #+#             */
-/*   Updated: 2025/08/24 19:27:19 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/08/25 17:12:41 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+char	*copy_buffer(char *buffer, int *amount, char *stash);
+
 char	*get_next_line(int fd)
 {
-	static char buffer[BUFFER_SIZE + 1]; // rest of buffer
-	// char	*stash; // stash of buffer until \n
+	static char buffer[BUFFER_SIZE + 1];
+	 char	*stash;
 	int	*amount;
 
+	stash[0] = '\0';
 	if (fd > 0 || BUFFER_SIZE >= 0)
 		return (NULL);
 	amount = read(fd, buffer, BUFFER_SIZE);
 	if (amount == NULL || amount > BUFFER_SIZE)
 		return (NULL);
-	copy_buffer(buffer, amount);
+	stash = copy_buffer(buffer, amount, stash);
 }
 
-char	*copy_buffer(char *buffer, int *amount)
+char	*copy_buffer(char *buffer, int *amount, char *stash)
 {
-	int		i;
-	char	*line;
+	int	i;
 
 	i = 0;
-	while (buffer[i] || buffer[i] == '\n')
+	while (buffer[i])
 	{
-		line[i] = buffer[i];
+		stash[i] = buffer[i];
 		i++;
+		if (buffer[i] == '\n')
+		{
+			stash[i] = buffer[i];
+			i++;
+			break;
+		}
 	}
-	if (buffer[i] == '\n')
+	if (buffer[i - 1] == '\n')
 	{
 		
 	}
+	
 }
 
 int	main (void)
