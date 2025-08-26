@@ -6,7 +6,7 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:22:43 by olmatske          #+#    #+#             */
-/*   Updated: 2025/08/23 12:55:43 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/08/26 22:25:36 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
-
-// typedef struct s_list
-// {
-// 	char *str;
-// 	str
-
-// }	t_list;
+#include <stdlib.h>
 
 # ifndef BUFFER_SIZE
 #	define BUFFER_SIZE 42
@@ -30,5 +24,11 @@
 
 char	*get_next_line(int fd);
 
+size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize);
+int	ft_strchr(const char *str, char c);
+size_t	ft_strlen(char const *str);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strdup(const char *s1);
+char *ft_substr(char const *s, unsigned int start, size_t len);
 
 # endif
