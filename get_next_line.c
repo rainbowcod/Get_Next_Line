@@ -6,7 +6,7 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 00:50:37 by olmatske          #+#    #+#             */
-/*   Updated: 2025/08/26 21:49:57 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/08/26 21:50:50 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*get_next_line(int fd)
 	}
 	return (stash);
 }
+
 
 static char	*copy_buffer(char *buffer, int *amount, char *stash)
 {
