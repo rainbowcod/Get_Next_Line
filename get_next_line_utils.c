@@ -6,19 +6,25 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 17:16:33 by olmatske          #+#    #+#             */
-/*   Updated: 2025/08/26 15:53:26 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/08/26 21:22:37 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// ADD STRLCPY FUNCITON!!!! NEEDED FOR STRJOIN
+// maybe better use strlcat and not strjoin???
+
 #include "get_next_line.h"
 
-char	*ft_strchr(const char *str, int c)
+int	ft_strchr(const char *str, char c)
 {
-	while (*str && *str != (char)c)
-		(str)++;
-	if (*str == (char)c)
-		return ((char *)str);
-	return (NULL);
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != c)
+		str[i++];
+	if (str[i])
+		return (i);
+	return (-1);
 }
 
 size_t	ft_strlen(char const *str)
@@ -54,7 +60,7 @@ char	*ft_strdup(const char *s1)
 
 	i = 0;
 	size = ft_strlen(s1);
-	ptr = mallox(sizeof(char) * (size + 1));
+	// ptr = mallox(sizeof(char) * (size + 1));
 	if (!ptr)
 		return (NULL);
 	while (s1[i])
