@@ -6,7 +6,7 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 17:16:33 by olmatske          #+#    #+#             */
-/*   Updated: 2025/08/25 18:25:12 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/08/26 15:53:26 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	*ft_strdup(const char *s1)
 	return (ptr);
 }
 
+// copies a string from the index start for len amount
 char *ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	i;
