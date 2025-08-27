@@ -6,7 +6,7 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 00:50:37 by olmatske          #+#    #+#             */
-/*   Updated: 2025/08/27 12:36:05 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/08/28 00:02:04 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,64 +18,68 @@ static char	*copy_buffer(char *buffer, int amount, char *stash, char **leftovers
 
 char	*get_next_line(int fd)
 {
-	char buffer[BUFFER_SIZE + 1];
+	char		buffer[BUFFER_SIZE + 1];
 	static char	*leftovers;
-	char	*stash;
-	int		amount;
+	char		*stash;
+	int			amount;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
+	stash = NULL;
 	if (leftovers)
+	{
 		stash = ft_strdup(leftovers);
-	else
+		free(leftovers);
+		leftovers = NULL;
+		if (!stash || (ft_strchr(stash, '\n') != -1))
+			return (stash);
+	}
+	if (!stash)
 	{
 		stash = malloc(1);
 		if (!stash)
 			return (NULL);
+		stash[0] = '\0';
 	}
-	while (ft_strchr(buffer, '\n') == -1)
+	while ((amount = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
-		amount = read(fd, buffer, BUFFER_SIZE);
-		if (amount == -1)
-			return (NULL);
-		if (amount == 0)
-			return (leftovers);
 		buffer[amount] = '\0';
 		stash = copy_buffer(buffer, amount, stash, &leftovers);
+		if (!stash)
+			return (NULL);
+		if (ft_strchr(buffer, '\n') != -1)
+			return (stash);
 	}
-	if (stash[0] == '\0')
+	if (amount < 0)
 	{
-		//free(stash);
+		free(stash);
 		return (NULL);
 	}
-	return (stash);
+	if (stash[0])
+		return (stash);
+	free(stash);
+	return (NULL);
 }
 
 static char	*copy_buffer(char *buffer, int amount, char *stash, char **leftovers)
 {
 	int		start;
 	char	*tmp;
+	char	*substr;
 
-	start = 0;
 	if (ft_strchr(buffer, '\n') > -1)
 	{
 		start = ft_strchr(buffer, '\n');
-		if (*leftovers)
-		{
-			//free(stash);
-			stash = ft_strjoin(*leftovers, ft_substr(buffer, 0, start));
-			//free(leftovers);
-		}
-		stash = ft_strjoin(stash, ft_substr(buffer, 0, start));
-		*leftovers = ft_substr(buffer, start + 1, amount);
+		substr = ft_substr(buffer, 0, start + 1);
+		tmp = ft_strjoin(stash, substr);
+		free(substr);
+		free(stash);
+		*leftovers = ft_substr(buffer, start + 1, amount - (start + 1));
+		return (tmp);
 	}
-	else
-	{
-		tmp = ft_strjoin(stash, buffer);
-		//free(stash);
-		stash = tmp;
-	}
-	return (stash);
+	tmp = ft_strjoin(stash, buffer);
+	free(stash);
+	return (tmp);
 }
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize)
@@ -94,42 +98,20 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize)
 	return (ft_strlen(src));
 }
 
-// static char	*copy_buffer(char *buffer, int *amount, char *stash)
+// int	main (void)
 // {
-// 	int	i;
+// 	int	fd;
+// 	char *line;
 
-// 	i = 0;
-// 	while (buffer[i])
+// 	fd = open("test.txt", O_RDONLY);
+// 	if (fd < 0)
+// 		return (1);
+
+// 	while ((line = get_next_line(fd)) != NULL)
 // 	{
-// 		if (buffer[i] == '\n')
-// 		{
-// 			stash[i] = buffer[i];
-// 			i++;
-// 			break;
-// 		}
-// 		stash[i] = buffer[i];
-// 		i++;
+// 		printf("%s", line);
+// 		free(line);
 // 	}
-// 	if (buffer[i - 1] == '\n')
-// 		buffer = ft_substr(buffer, i, amount - i);
-	
+// 	close(fd);
+// 	return (0);
 // }
-
-int	main (void)
-{
-	int	fd;
-	char *line;
-	int i = 0;
-
-	fd = open("test.txt", O_RDONLY);
-	if (fd < 0)
-		return (printf("error"));
-	while ((line = get_next_line(fd)) != NULL || i < 30)
-	{
-		printf("%s", line);
-		i++;
-		//free(line);
-	}
-	close(fd);
-	return (0);
-}
