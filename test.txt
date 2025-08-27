@@ -1,26 +1,20 @@
-hgh\n
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
-jj
+42
+df
+s
+
+sdfs
+sdfsd
+
+sdfsd
+
+
+
+dddd
+handleh
+
+h
+hh
 
 hhhh
-
-Uninitialized stash:
-char *stash; is declared but never allocated before stash[0] = '\0';
-, which causes undefined behavior.
-
-Memory leaks and incorrect allocation:
-In copy_buffer, you allocate memory for stash and immediately overwrite
-its pointer with the result of ft_strjoin, leaking the original allocation.
-
-Incorrect use of ft_strchr:
-You use ft_strchr(buffer, '\n') == -1, but ft_strchr usually returns a
- pointer, not an index. If you wrote your own version, ensure it returns an
-  index or fix the check.
-
-Buffer handling:
-The static buffer is not properly managed between calls, and the function 
-does not handle partial lines or leftover data.
-
-No handling for end-of-file:
-If the last line doesn't end with a newline, it won't be returned.
-
