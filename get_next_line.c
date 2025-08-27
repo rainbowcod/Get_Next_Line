@@ -6,7 +6,7 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 00:50:37 by olmatske          #+#    #+#             */
-/*   Updated: 2025/08/26 22:32:30 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/08/27 11:47:56 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 #include "get_next_line.h"
 
-static char	*copy_buffer(char *buffer, int amount, char *stash);
+static char	*copy_buffer(char *buffer, int amount, char *stash, char *leftovers);
 
 char	*get_next_line(int fd)
 {
-	static char buffer[BUFFER_SIZE + 1];
+	char buffer[BUFFER_SIZE + 1];
+	static char	*leftovers;
 	char	*stash;
 	int		amount;
 
-	stash[0] = '\0';
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	while (ft_strchr(buffer, '\n') == -1)
@@ -30,26 +30,33 @@ char	*get_next_line(int fd)
 		amount = read(fd, buffer, BUFFER_SIZE);
 		if (amount == -1)
 			return (NULL);
-		stash = copy_buffer(buffer, amount, stash);
+		buffer[amount + 1] = '\0';
+		stash = malloc(sizeof(char) * amount);
+		stash = copy_buffer(buffer, amount, stash, leftovers);
 	}
 	return (stash);
 }
 
-static char	*copy_buffer(char *buffer, int amount, char *stash)
+static char	*copy_buffer(char *buffer, int amount, char *stash, char *leftovers)
 {
 	int	start;
 
 	start = 0;
-	if (ft_strchr(buffer, '\n') != -1)
+	if (ft_strchr(buffer, '\n') > -1)
 	{
 		start = ft_strchr(buffer, '\n');
-		stash = malloc(sizeof(char) * start);
+		if (leftovers)
+		{
+			free(stash);
+			stash = ft_strjoin(leftovers, ft_substr(buffer, 0, start));
+			free(leftovers);
+		}
 		stash = ft_strjoin(stash, ft_substr(buffer, 0, start));
+		leftovers = ft_substr(buffer, start + 1, amount);
 	}
 	else
 	{
-		stash = malloc(sizeof(amount));
-		stash = ft_strjoin(stash, buffer);
+		stash = ft_strjoin(stash, buffer); //memory leak
 	}
 	return (stash);
 }
