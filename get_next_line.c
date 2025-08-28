@@ -6,7 +6,7 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 00:50:37 by olmatske          #+#    #+#             */
-/*   Updated: 2025/08/28 00:02:04 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/08/28 20:38:33 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,20 +98,22 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize)
 	return (ft_strlen(src));
 }
 
-// int	main (void)
-// {
-// 	int	fd;
-// 	char *line;
+#include <stdio.h>
 
-// 	fd = open("test.txt", O_RDONLY);
-// 	if (fd < 0)
-// 		return (1);
+int	main (void)
+{
+	int	fd;
+	char *line;
 
-// 	while ((line = get_next_line(fd)) != NULL)
-// 	{
-// 		printf("%s", line);
-// 		free(line);
-// 	}
-// 	close(fd);
-// 	return (0);
-// }
+	fd = open("tst", O_RDONLY);
+	if (fd < 0)
+		return (1);
+
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		printf("Line: >%s<\n", line);
+		free(line);
+	}
+	close(fd);
+	return (0);
+}
