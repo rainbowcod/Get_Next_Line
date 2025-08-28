@@ -6,12 +6,12 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 00:50:37 by olmatske          #+#    #+#             */
-/*   Updated: 2025/08/28 21:37:55 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/08/28 21:56:49 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // fix new line aftr second 
-// 
+// do static buffer so that you have less leaks
 
 #include "get_next_line.h"
 
@@ -119,11 +119,12 @@ int	main (void)
 	if (fd < 0)
 		return (1);
 
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		printf("Line: >%s<\n", line);
-		free(line);
-	}
+	line = get_next_line(fd);
+	printf("Line: >%s<\n", line);
+	free(line);
+	line = get_next_line(fd);
+	printf("Line: >%s<\n", line);
+	free(line);
 	close(fd);
 	return (0);
 }
