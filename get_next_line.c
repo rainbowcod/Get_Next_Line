@@ -6,11 +6,12 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 00:50:37 by olmatske          #+#    #+#             */
-/*   Updated: 2025/08/28 20:38:33 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/08/28 21:37:55 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// shit got memory leaks :(
+// fix new line aftr second 
+// 
 
 #include "get_next_line.h"
 
@@ -25,11 +26,15 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
+	if (!leftovers)
+		free(leftovers);
 	stash = NULL;
 	if (leftovers)
 	{
 		stash = ft_strdup(leftovers);
-		free(leftovers);
+		// if (!stash)
+		// 	return (NULL);
+		// free(leftovers);
 		leftovers = NULL;
 		if (!stash || (ft_strchr(stash, '\n') != -1))
 			return (stash);
@@ -71,6 +76,11 @@ static char	*copy_buffer(char *buffer, int amount, char *stash, char **leftovers
 	{
 		start = ft_strchr(buffer, '\n');
 		substr = ft_substr(buffer, 0, start + 1);
+		// if (!substr)
+		// {
+		// 	free (buffer);
+		// 	return (NULL);
+		// }
 		tmp = ft_strjoin(stash, substr);
 		free(substr);
 		free(stash);

@@ -6,7 +6,7 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:22:43 by olmatske          #+#    #+#             */
-/*   Updated: 2025/08/26 22:25:36 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/08/28 20:49:59 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdlib.h>
 
 # ifndef BUFFER_SIZE
-#	define BUFFER_SIZE 42
+#	define BUFFER_SIZE 10000
 # endif
 
 char	*get_next_line(int fd);
