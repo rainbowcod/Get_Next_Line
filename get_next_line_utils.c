@@ -5,6 +5,8 @@ int	ft_strchr(const char *str, char c)
 	int	i;
 
 	i = 0;
+	if (str == NULL)
+		return (-1);
 	while (str[i] && str[i] != c)
 		i++;
 	if (str[i])
@@ -17,19 +19,25 @@ size_t	ft_strlen(char const *str)
 	size_t	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i])
 		i++;
 	return (i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		len1;
 	int		len2;
 	char	*res;
 
+	if (!s1 && !s2)
+		return (NULL);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
+	if ((len1 + len2) == 0)
+		return (NULL);
 	res = malloc(sizeof(char) * (len1 + len2 + 1));
 	if (!res)
 		return (NULL);
@@ -37,53 +45,51 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		ft_strlcpy(res, s1, len1 + 1);
 	if (s2)
 		ft_strlcpy(res + len1, s2, len2 + 1);
+	free(s1);
 	return (res);
 }
 
-char	*ft_strdup(const char *s1)
-{
-	size_t	size;
-	size_t	i;
-	char	*ptr;
+// char	*ft_strdup(const char *s1)
+// {
+// 	size_t	len;
+// 	size_t	i;
+// 	char	*ptr;
 
-	i = 0;
-	size = ft_strlen(s1);
-	ptr = malloc(sizeof(char) * (size + 1));
-	if (!ptr)
-		return (NULL);
-	while (s1[i])
-	{
-		ptr[i] = s1[i];
-		i++;
-	}
-	ptr[i] = '\0';
-	return (ptr);
-}
+// 	i = 0;
+// 	len = ft_strlen(s1);
+// 	if (len == 0)
+// 		return (NULL);
+// 	ptr = malloc(sizeof(char) * (len + 1));
+// 	if (!ptr)
+// 		return (NULL);
+// 	while (s1[i])
+// 	{
+// 		ptr[i] = s1[i];
+// 		i++;
+// 	}
+// 	ptr[i] = '\0';
+// 	return (ptr);
+// }
 
 // copies a string from the index start for len amount
-char *ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	i;
-	size_t	count;
-	char	*res;
+	size_t char_count;
+	char *res;
 
-	i = 0;
 	if (!s)
 		return (NULL);
-	count = ft_strlen(s);
-	if (start >= count)
-		return (ft_strdup(""));
-	if (len > count - start)
-		len = count - start;
-	res = malloc(sizeof(char) * len + 1);
+	char_count = ft_strlen(s);
+	if (start >= char_count)
+		return (NULL);
+	res = malloc(sizeof(char) * (char_count + 1));
 	if (!res)
 		return (NULL);
-	while (i < len && s[start] != '\0')
+	while (s[start] != '\0' && start <= len) // <=?
 	{
-		res[i] = s[start];
-		i++;
+		res[start] = s[start];
 		start++;
 	}
-	res[i] = '\0';
+	res[start] = '\0';
 	return (res);
 }

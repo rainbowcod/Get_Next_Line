@@ -6,7 +6,7 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:22:43 by olmatske          #+#    #+#             */
-/*   Updated: 2025/09/02 12:47:10 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/09/02 16:46:15 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ char	*get_next_line(int fd);
 
 int	ft_strchr(const char *str, char c);
 size_t	ft_strlen(char const *str);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strdup(const char *s1);
 char *ft_substr(char const *s, unsigned int start, size_t len);
 void	*ft_bezero(char *str, size_t len);
+size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize);
 
 # endif
