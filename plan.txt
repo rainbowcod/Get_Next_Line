@@ -21,3 +21,4 @@ static char buffer[] -> aufm stack, freet sich slebst am ende
 
 ReturnVal: everything until including \n
 buffer: rest after \n
+
