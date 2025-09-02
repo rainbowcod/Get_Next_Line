@@ -5,65 +5,61 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/17 00:50:37 by olmatske          #+#    #+#             */
-/*   Updated: 2025/08/31 18:17:04 by olmatske         ###   ########.fr       */
+/*   Created: 2025/09/01 21:34:01 by olmatske          #+#    #+#             */
+/*   Updated: 2025/09/02 12:59:12 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// fix new line aftr second 
-// do static buffer so that you have less leaks
-
 #include "get_next_line.h"
 
-static int	buffer_read(int fd, char *stash, char *buffer, int amount);
-static char	*buffer_copy(char *buffer, char *stash, int amount);
+// problems: where do I read and put in tmp and clean buffer???
+
+char	*get_line(int fd, char *tmp, char *buffer, int amount);
 
 char	*get_next_line(int fd)
 {
 	static char	buffer[BUFFER_SIZE + 1];
-	char	*stash;
-	int		amount;
-
-	
-}
-
-static int	buffer_read(int fd, char *stash, char *buffer, int amount)
-{
-	char	*tmp;
+	char		*tmp;
+	char		*res;
+	int			amount;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	amount = read(fd, buffer, BUFFER_SIZE);
+	amount = 1;
 	while (amount > 0)
 	{
-		buffer[BUFFER_SIZE + 1] = '\0';
-		tmp = 
+		amount = read(fd, buffer, BUFFER_SIZE);
+		tmp = ft_strdup(buffer);
+		if (!tmp)
+			return (NULL);
+		ft_bezero(buffer, amount); // use BUFFER_SIZE but why?
+		res = get_line(fd, tmp, buffer, amount);
+		if (!res)
+			return (NULL);
 	}
-	while ()
+}
+char	*get_line(int fd, char *tmp, char *buffer, int amount)
+{
+	char	*res;
+	int		nl;
+
+	while (amount > 0)
+	{
+		if (ft_strchr(tmp, '\n') > -1)
+		{
+			nl = ft_strchr(tmp, '\n');
+			res = ft_substr(tmp, 0, nl + 1);
+			ft_strlcpy(buffer, tmp + nl + 1, BUFFER_SIZE);
+		}
+	}
 }
 
-static char	*buffer_copy(char *buffer, char *stash, int amount)
+void	*ft_bezero(char *str, size_t len)
 {
-	
-}
+	size_t	i;
 
-#include <stdio.h>
-
-int	main (void)
-{
-	int	fd;
-	char *line;
-
-	fd = open("tst", O_RDONLY);
-	if (fd < 0)
-		return (1);
-
-	line = get_next_line(fd);
-	printf("Line: >%s<\n", line);
-	free(line);
-	line = get_next_line(fd);
-	printf("Line: >%s<\n", line);
-	free(line);
-	close(fd);
-	return (0);
+	i = 0;
+	while (i < len)
+		str[i++] = '\0';
+	return (str);
 }

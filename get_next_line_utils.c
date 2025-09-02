@@ -1,20 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/25 17:16:33 by olmatske          #+#    #+#             */
-/*   Updated: 2025/08/27 23:55:31 by olmatske         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-// ADD STRLCPY FUNCITON!!!! NEEDED FOR STRJOIN
-// maybe better use strlcat and not strjoin???
-
-// STATIC FUNCTIONS!!!
-
 #include "get_next_line.h"
 
 int	ft_strchr(const char *str, char c)
