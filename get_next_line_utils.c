@@ -6,7 +6,7 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 12:57:06 by olmatske          #+#    #+#             */
-/*   Updated: 2025/09/03 13:00:34 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/09/03 13:58:26 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,27 +90,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	res[i] = '\0';
 	return (res);
 }
-
-// char	*ft_strdup(const char *s1)
-// {
-// 	size_t	len;
-// 	size_t	i;
-// 	char	*ptr;
-
-// 	i = 0;
-// 	len = ft_strlen(s1);
-// 	if (len == 0)
-// 		return (NULL);
-// 	ptr = malloc(sizeof(char) * (len + 1));
-// 	if (!ptr)
-// 		return (NULL);
-// 	while (s1[i])
-// 	{
-// 		ptr[i] = s1[i];
-// 		i++;
-// 	}
-// 	ptr[i] = '\0';
-// 	return (ptr);
-// }
-
-// copies a string from the index start for len amount

@@ -6,7 +6,7 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 21:34:01 by olmatske          #+#    #+#             */
-/*   Updated: 2025/09/03 13:13:40 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/09/03 13:58:45 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,66 +113,4 @@ void	*ft_bezero(char *str, size_t len)
 // 		free(line);
 // 	}
 // 	return (0);
-// }
-
-// char	*read_file(int fd, char *tmp, char *buffer)
-// {
-// 	amount = 1;
-
-// 	// if new line in buffer
-// 	// 	return get_line
-// 	while (amount > 0)
-// 	{
-// 		if (res)
-// 		{
-// 			free (res);
-// 			res = NULL;
-// 		}
-// 		if (buffer not empty)
-// 			tmp = ft_strdup(buffer);
-
-// 		amount = read(fd, buffer, BUFFER_SIZE);
-// 		buffer[amount] = '\0';
-// 		if (!tmp)
-// 			return (NULL);
-// 		// ft_bezero(buffer, amount); // use BUFFER_SIZE but why?
-// 		res = get_line(fd, tmp, buffer, amount); // check if result is empty,
-// if not -> free
-// 		if (!res)
-// 			return (NULL);
-// 	}
-// }
-
-// char *read_file:
-// 	if (new line in buffer)
-// 		return strdup(buffer)
-// 	else
-// 		while()
-// read from file
-// extratc from readed
-// update buffer
-
-// char	*get_line(int fd, char *tmp, char *buffer, int amount)
-// {
-// 	char	*res;
-// 	int		nl;
-
-// 	while (amount > 0 || ft_strchr(tmp, '\n') > -1)
-// 	{
-// 		if (ft_strchr(tmp, '\n') > -1)
-// 		{
-// 			nl = ft_strchr(tmp, '\n');
-// 			res = ft_substr(tmp, 0, nl + 1);
-// 			ft_strlcpy(buffer, tmp + nl + 1, BUFFER_SIZE);
-// 			free (tmp);
-// 			tmp = NULL;
-// 			return (res);
-// 		}
-// 		else
-// 		{
-// 			res = ft_strjoin(res, tmp);
-// 			ft_bezero(buffer, amount);
-// 		}
-// 	}
-// 	return (res);
 // }
