@@ -6,7 +6,7 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 21:34:01 by olmatske          #+#    #+#             */
-/*   Updated: 2025/09/02 21:31:02 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/09/03 12:27:42 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,20 @@ char	*get_next_line(int fd)
 	char		*tmp;
 	char		*res;
 	int			nl;
-	int			len;
 	int			amount;
 
-	amount = 1;
 	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1024)
 		return (NULL);
-	res = NULL;
-	len = ft_strlen(buffer);
-	if (len == 0)
-		tmp = NULL;
-	else
+	tmp = NULL;
+	amount = 1;
+	if (ft_strlen(buffer) > 0)
 	{
-		tmp = malloc(sizeof(char) * (len + 1));
+		tmp = ft_strjoin(tmp, buffer);
 		if (!tmp)
 		{
 			ft_bezero(buffer, BUFFER_SIZE + 1);
 			return (NULL);
 		}
-		ft_strlcpy(tmp, buffer, ft_strlen(buffer) + 1);
 		ft_bezero(buffer, BUFFER_SIZE + 1);
 	}
 	while (ft_strchr(tmp, '\n') == -1 && amount != 0)
@@ -50,42 +45,50 @@ char	*get_next_line(int fd)
 		if (amount < 0)
 		{
 			free(tmp);
-			tmp = NULL;
 			ft_bezero(buffer, BUFFER_SIZE + 1);
 			return (NULL);
 		}
+		buffer[amount] = '\0';
 		tmp = ft_strjoin(tmp, buffer);
 		if (!tmp)
 		{
 			ft_bezero(buffer, BUFFER_SIZE + 1);
-			return (NULL); // evtl buffer nullen
+			return (NULL);
 		}
 		ft_bezero(buffer, BUFFER_SIZE + 1);
 	}
+	if (!tmp || ft_strlen(tmp) == 0)
+		return (free(tmp), NULL);
 	nl = ft_strchr(tmp, '\n');
 	if (nl == -1)
 		return (tmp);
-	res = ft_substr(tmp, 0, nl);
-	ft_strlcpy(buffer, tmp + nl + 1, BUFFER_SIZE + 1); // added + nl + 1
+	res = ft_substr(tmp, 0, nl + 1);
+	if (!res)
+		return (free(tmp),NULL); //tmp indtead of res
+	if (ft_strlen(tmp + nl + 1) > 0) // tmp instead of res
+		ft_strlcpy(buffer, tmp + nl + 1, BUFFER_SIZE + 1);
 	free(tmp);
-	tmp = NULL;
 	return (res);
 }
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize)
 {
 	size_t	i;
+	size_t	len;
 
+	if (!src)
+		return (0);
 	i = 0;
+	len = ft_strlen(src);
 	if (dstsize == 0)
-		return (ft_strlen(src));
+		return (len);
 	while (src[i] && i < dstsize - 1)
 	{
 		dest[i] = src[i];
 		i++;
 	}
 	dest[i] = '\0';
-	return (i);
+	return (len);
 }
 
 void	*ft_bezero(char *str, size_t len)
@@ -98,19 +101,19 @@ void	*ft_bezero(char *str, size_t len)
 	return (str);
 }
 
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*line;
+int	main(void)
+{
+	int		fd;
+	char	*line;
 
-// 	fd = open("tst", O_RDONLY);
-// 	while ((line = get_next_line(fd)))
-// 	{
-// 		printf("%s", line);
-// 		free(line);
-// 	}
-// 	return (0);
-// }
+	fd = open("tst", O_RDONLY);
+	while ((line = get_next_line(fd)))
+	{
+		printf("%s", line);
+		free(line);
+	}
+	return (0);
+}
 
 // char	*read_file(int fd, char *tmp, char *buffer)
 // {
