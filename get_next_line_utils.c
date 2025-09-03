@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/03 12:57:06 by olmatske          #+#    #+#             */
+/*   Updated: 2025/09/03 13:00:34 by olmatske         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 int	ft_strchr(const char *str, char c)
@@ -65,16 +77,12 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	slen = ft_strlen(s);
 	if (start >= slen)
-	{
-		if (!(res = malloc(1)))
-			return (NULL);
-		res[0] = '\0';
-		return (res);
-	}
+		return (NULL);
 	sub = slen - start;
 	if (sub > len)
 		sub = len;
-	if (!(res = malloc(sizeof(char) * (sub + 1))))
+	res = malloc(sizeof(char) * (sub + 1));
+	if (!res)
 		return (NULL);
 	i = 0;
 	while (i < sub)

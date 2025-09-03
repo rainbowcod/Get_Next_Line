@@ -6,7 +6,7 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 21:34:01 by olmatske          #+#    #+#             */
-/*   Updated: 2025/09/03 12:27:42 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/09/03 13:03:25 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,18 @@ char	*get_next_line(int fd)
 	{
 		tmp = ft_strjoin(tmp, buffer);
 		if (!tmp)
-		{
-			ft_bezero(buffer, BUFFER_SIZE + 1);
-			return (NULL);
-		}
+			return (ft_bezero(buffer, BUFFER_SIZE + 1), NULL);
 		ft_bezero(buffer, BUFFER_SIZE + 1);
 	}
 	while (ft_strchr(tmp, '\n') == -1 && amount != 0)
 	{
 		amount = read(fd, buffer, BUFFER_SIZE);
 		if (amount < 0)
-		{
-			free(tmp);
-			ft_bezero(buffer, BUFFER_SIZE + 1);
-			return (NULL);
-		}
+			return (free(tmp), ft_bezero(buffer, BUFFER_SIZE + 1), NULL);
 		buffer[amount] = '\0';
 		tmp = ft_strjoin(tmp, buffer);
 		if (!tmp)
-		{
-			ft_bezero(buffer, BUFFER_SIZE + 1);
-			return (NULL);
-		}
+			return (ft_bezero(buffer, BUFFER_SIZE + 1), NULL);
 		ft_bezero(buffer, BUFFER_SIZE + 1);
 	}
 	if (!tmp || ft_strlen(tmp) == 0)
@@ -70,6 +60,8 @@ char	*get_next_line(int fd)
 	free(tmp);
 	return (res);
 }
+
+// char	*ft_loop(char *buffer, char *tmp)
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize)
 {
@@ -101,19 +93,19 @@ void	*ft_bezero(char *str, size_t len)
 	return (str);
 }
 
-int	main(void)
-{
-	int		fd;
-	char	*line;
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*line;
 
-	fd = open("tst", O_RDONLY);
-	while ((line = get_next_line(fd)))
-	{
-		printf("%s", line);
-		free(line);
-	}
-	return (0);
-}
+// 	fd = open("tst", O_RDONLY);
+// 	while ((line = get_next_line(fd)))
+// 	{
+// 		printf("%s", line);
+// 		free(line);
+// 	}
+// 	return (0);
+// }
 
 // char	*read_file(int fd, char *tmp, char *buffer)
 // {
