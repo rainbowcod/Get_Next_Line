@@ -6,16 +6,14 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 21:34:01 by olmatske          #+#    #+#             */
-/*   Updated: 2025/09/03 13:03:25 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/09/03 13:13:40 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-// problems: check for values in buffer
-
-// char	*get_line(int fd, char *tmp, char *buffer, int amount);
-// char	*read_file(int fd, char *tmp, char *buffer);
+char	*ft_loop(int fd, char *buffer, char *tmp, int amount);
+char	*ft_check_buffer(char *buffer, char *tmp);
 
 char	*get_next_line(int fd)
 {
@@ -25,10 +23,28 @@ char	*get_next_line(int fd)
 	int			nl;
 	int			amount;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1024)
-		return (NULL);
 	tmp = NULL;
 	amount = 1;
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1024)
+		return (NULL);
+	tmp = ft_check_buffer(buffer, tmp);
+	tmp = ft_loop(fd, buffer, tmp, amount);
+	if (!tmp || ft_strlen(tmp) == 0)
+		return (free(tmp), NULL);
+	nl = ft_strchr(tmp, '\n');
+	if (nl == -1)
+		return (tmp);
+	res = ft_substr(tmp, 0, nl + 1);
+	if (!res)
+		return (free(tmp), NULL);
+	if (ft_strlen(tmp + nl + 1) > 0)
+		ft_strlcpy(buffer, tmp + nl + 1, BUFFER_SIZE + 1);
+	free(tmp);
+	return (res);
+}
+
+char	*ft_check_buffer(char *buffer, char *tmp)
+{
 	if (ft_strlen(buffer) > 0)
 	{
 		tmp = ft_strjoin(tmp, buffer);
@@ -36,6 +52,11 @@ char	*get_next_line(int fd)
 			return (ft_bezero(buffer, BUFFER_SIZE + 1), NULL);
 		ft_bezero(buffer, BUFFER_SIZE + 1);
 	}
+	return (tmp);
+}
+
+char	*ft_loop(int fd, char *buffer, char *tmp, int amount)
+{
 	while (ft_strchr(tmp, '\n') == -1 && amount != 0)
 	{
 		amount = read(fd, buffer, BUFFER_SIZE);
@@ -47,21 +68,8 @@ char	*get_next_line(int fd)
 			return (ft_bezero(buffer, BUFFER_SIZE + 1), NULL);
 		ft_bezero(buffer, BUFFER_SIZE + 1);
 	}
-	if (!tmp || ft_strlen(tmp) == 0)
-		return (free(tmp), NULL);
-	nl = ft_strchr(tmp, '\n');
-	if (nl == -1)
-		return (tmp);
-	res = ft_substr(tmp, 0, nl + 1);
-	if (!res)
-		return (free(tmp),NULL); //tmp indtead of res
-	if (ft_strlen(tmp + nl + 1) > 0) // tmp instead of res
-		ft_strlcpy(buffer, tmp + nl + 1, BUFFER_SIZE + 1);
-	free(tmp);
-	return (res);
+	return (tmp);
 }
-
-// char	*ft_loop(char *buffer, char *tmp)
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize)
 {
